@@ -2,7 +2,8 @@
 pipeline {
   agent any
   tools {
-    maven 'maven-3'
+     maven 'Maven 3.3.9'
+     jdk 'jdk8'
   }
   stages {
 
@@ -13,11 +14,7 @@ pipeline {
       }
 
     stage('Publish report') {
-        steps {
-          sh "echo ${currentBuild.startTimeInMillis}"
-          sh "mkdir /var/jenkins_home/reportsVolume/${currentBuild.startTimeInMillis}"
-          sh "mv ./target/cucumber-report/example.html /var/jenkins_home/reportsVolume/${currentBuild.startTimeInMillis}"
-        }
+         publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'cucumber-report', reportFiles: 'example.html', reportName: 'report', reportTitles: 'report'])
     }
 
   }
