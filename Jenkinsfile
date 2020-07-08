@@ -2,8 +2,8 @@
 pipeline {
   agent any
   tools {
-     maven 'Maven 3.3.9'
-     jdk 'jdk8'
+     maven 'Maven'
+     jdk 'jdk'
   }
   stages {
 
@@ -14,7 +14,9 @@ pipeline {
       }
 
     stage('Publish report') {
-         publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'cucumber-report', reportFiles: 'example.html', reportName: 'report', reportTitles: 'report'])
+    steps {
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'cucumber-report', reportFiles: 'example.html', reportName: 'report', reportTitles: 'report'])
+         }
     }
 
   }
